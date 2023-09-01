@@ -1,0 +1,56 @@
+*{
+    box-sizing: border-box;
+}
+
+.header{
+    background-image: url('../gambar/beach.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 20px;
+    text-align: center;
+    color:black;
+}
+
+.navbar{
+    overflow: hidden;
+    background-color: aquamarine;
+}
+
+.navbar a{
+    float: left;
+    display:block;
+    color:white;
+    text-align: center;
+    padding: 14px; 
+    text-decoration:none;
+}
+
+.navbar a:hover{
+    background-color: white;
+    color:black;
+}
+
+.colum{
+    float:left;
+    padding: 10px;
+}
+
+.colum.side{
+    width:25%;
+}
+
+.colum.middle{
+    width: 50px;
+}
+
+.row::after{
+    content:"";
+    display:table;
+    clear:both; /*membersihkan float sebelumnya*/
+}
+
+.footer{
+    background-color: aqua;
+    padding: 10px;
+    text-align: center;
+}
