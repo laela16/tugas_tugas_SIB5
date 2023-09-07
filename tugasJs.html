@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tugas Javascript</title>
+    <script src="https://kit.fontawesome.com/8ee2d6e368.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css" />
+    <script>
+      // data variables
+      let nama = "Nurlaela";
+      let nomer = "08571112672";
+      let alamat = "Tangerang";
+      let gender = "Perempuan";
+      let umur = 21;
+      let keahlian = "Web Developer ";
+      let email = "nurlaela.nl1616@gmail.com";
+    </script>
+  </head>
+
+  <body>
+    <div class="card">
+        <h1>Biodata Diri</h1>
+      <div class="img"><img src="user.png" alt="" /></div>
+      <script>
+        // Nama dan Keahlian
+        document.writeln("<span>" + nama + "</span>");
+        document.writeln("<small><span>" + keahlian + "</span></small>");
+      </script>
+      <p class="info">
+        <script>
+          // Email, No. HP, Alamat, Gender, Umur
+          document.write("📧 " + email + "<br/>");
+          document.write("📞 " + nomer + "<br/>");
+          document.write("&nbsp;📍&nbsp; " + alamat + "<br/>");
+          document.write("&nbsp;ℹ&nbsp; " + gender + ", " + umur + "<br/>");
+        </script>
+      </p>
+      <button>Resume</button>
+      <div class="share">
+             <i class="fa-brands fa-instagram"></i>
+             <i class="fa-brands fa-facebook"></i>
+             <i class="fa-brands fa-twitter"></i>
+             <i class="fa-brands fa-github"></i>
+            <br><br>
+      </div>
+      </div>
+    </div>
+  </body>
+</html>
