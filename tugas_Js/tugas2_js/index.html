@@ -1,0 +1,35 @@
+<script>
+    // Data pegawai
+    let pegawai = "Ridwan";
+    let jabatan = "Manager";
+    let status = "Menikah";
+    let gapok = "";
+
+    // percabangan jabatan dan gaji
+    if (jabatan == "Manager") {
+            gapok = 15000000;
+        } else if (jabatan == "Asisten Manager") {
+            gapok = 10000000;
+        } else if (jabatan == "Staff") {
+        gapok = 5000000;
+     }
+
+    // data profit yang akan didapatkan pegawai
+    let tj_Jabatan = 0.15 * gapok;
+    let bpjs = 0.1 * gapok;
+    let tj_Keluarga = status == "Menikah" ? gapok * 0.2 : 0;
+    //  Total Profit yang akan didapatkan
+    let TotalGaji = gapok + tj_Jabatan + bpjs + tj_Keluarga; //percabangan ternary
+    let format = new Intl.NumberFormat("id-ID");
+
+// cetak data pegawai beserta profit gaji yang didapatkan
+  document.write("<h1>Data Pegawai</h1><br/>");
+  document.write("Nama Pegawai : " + pegawai + "<br/>");
+  document.write("Jabatan : " + jabatan + "<br/>");
+  document.write("Status : " + status + "<br/>");
+  document.write("Gaji Pokok : " + format.format(gapok) + "<br/>");
+  document.write("Tunjangan Jabatan : " + format.format(tj_Jabatan) + "<br/>");
+  document.write("BPJS : " + format.format(bpjs) + "<br/>");
+  document.write("Tunjangan Keluarga : " + format.format(tj_Keluarga) + "<br/>");
+  document.write("Total Gaji : " + format.format(TotalGaji) + "<br/>");
+</script>
