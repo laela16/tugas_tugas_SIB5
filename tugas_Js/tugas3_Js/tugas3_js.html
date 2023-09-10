@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>tugas 3 javascript</title>
+  </head>
+  <body>
+    <table style="padding: 10; text-align: center; width: 100%">
+      <thead>
+        <tr>
+          <th>Pegawai</th>
+          <th>Jabatan</th>
+          <th>Gaji Pokok</th>
+          <th>Agama</th>
+          <th>Tunjangan Jabatan</th>
+          <th>Tunjangan Kesehatan</th>
+          <th>Gaji Kotor</th>
+          <th>Take Home Pay</th>
+        </tr>
+      </thead>
+      <tbody>
+        <script>
+          //data pegawai
+          let pegawai = ['Haechan', 'Jhonny', 'Mark', 'Renjun', 'Chenle', 'Dimas', 'Aditya', 'Jeno', 'Jaemin', 'Jisung'];
+          for (let i = 1; i <= 10; i++) {
+            let jabatan = "";
+            let gapok = "";
+            let tj_Jabatan = "";
+            let tj_Kesehatan = "";
+            let gator = "";
+            let agama = i % 2 === 1 ? 'Muslim' : 'Non Muslim';
+            let warna = i % 2 === 1 ? 'yellow' : 'blue';
+            let zakatProfesi = "";
+            let takeHomePay = "";
+            let format = new Intl.NumberFormat("id-ID");
+
+            // menggunakan If multikondisi untuk menentukan jabatan:
+            if (i >= 1 && i <= 2) {
+              jabatan = 'Manager';
+            } else if (i >= 3 && i <= 5) {
+              jabatan = 'Asisten Manager';
+            } else if (i >= 6 && i <= 8) {
+              jabatan = 'Supervisor';
+            } else if (i >= 9 && i <= 10) {
+              jabatan = 'Staff';
+            } else {
+              jabatan = "";
+            }
+
+            // Menggunakan switch case untuk menghitung gapok
+            switch (jabatan) {
+              case 'Manager':
+                gapok = 15000000;
+                break;
+              case 'Asisten Manager':
+                gapok = 10000000;
+                break;
+              case 'Supervisor':
+                gapok = 7000000;
+                break;
+              case 'Staff':
+                gapok = 4000000;
+                break;
+              default:
+                gapok = "";
+                break;
+            }
+
+        // Dari Gapok kemudian menentukan profit tambahan yg didapat
+            tj_Jabatan = 0.2 * gapok;
+            tj_Kesehatan = 0.1 * gapok;
+            gator = gapok + tj_Jabatan + tj_Kesehatan;
+
+        // jika pegawai muslim dan gaji kotornya minimal 7jt, ada zakat profesi sebesar 2,5% dari gaji kotornya
+        // Mengunakan ternary untuk menentukan agama Muslim dan Non Muslim  
+        if (agama === 'Muslim' && gator >= 7000000) {
+              zakatProfesi = 0.025 * gator;
+            }
+
+            takeHomePay = gator - zakatProfesi;
+
+            document.write(`
+                        <tr bgcolor="${warna}">
+                            <td>${pegawai[i - 1]}</td>
+                            <td>${jabatan}</td>
+                            <td>${format.format(gapok)}</td>
+                            <td>${agama}</td>
+                            <td>${format.format(tj_Jabatan)}</td>
+                            <td>${format.format(tj_Kesehatan)}</td>
+                            <td>${format.format(gator)}</td>
+                            <td>${format.format(takeHomePay)}</td>
+                        </tr>
+                    `);
+          }
+        </script>
+      </tbody>
+    </table>
+  </body>
+</html>
