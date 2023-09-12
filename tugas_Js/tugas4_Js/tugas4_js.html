@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Toko Online</title>
+    <style>
+        hasilTransaksi{
+            text-align: justify;
+        }
+    </style>
+</head>
+<body>
+    <h1>Form Toko Online</h1>
+    <form id="tokoForm">
+        <label for="nama">Nama Pelanggan:</label>
+        <input type="text" id="nama" name="nama"><br><br>
+
+        <label for="produk">Pilih Produk:</label>
+        <select id="produk" name="produk">
+            <option value="TV">TV</option>
+            <option value="AC">AC</option>
+            <option value="Kulkas">Kulkas</option>
+        </select><br><br>
+
+        <label for="jumlah">Banyak Item Produk Dibeli:</label>
+        <input type="number" id="jumlah" name="jumlah" min="1"><br><br>
+
+        <button type="button" id="proses" onclick="transaksi()">Beli</button>
+    </form>
+
+    <script>
+        function transaksi() {
+            // Ambil data dari form
+            let nama = document.getElementById("nama").value;
+            let produk = document.getElementById("produk").value;
+            let jumlah = parseInt(document.getElementById("jumlah").value);
+
+            // Inisialisasi harga produk
+            let harga = 0;
+
+            // Hitung harga produk berdasarkan pilihan
+            switch (produk) {
+                case "TV":
+                    harga = 2000000;
+                    break;
+                case "AC":
+                    harga = 3000000;
+                    break;
+                case "Kulkas":
+                    harga = 4000000;
+                    break;
+                default:
+                    harga = 0;
+                    break;
+            }
+
+            // Hitung harga kotor
+            let hargaKotor = harga * jumlah;
+
+            // Hitung diskon
+            let diskon = 0;
+
+            if (produk === "Kulkas" && jumlah >= 3) {
+                diskon = 0.3 * hargaKotor;
+            } else if (produk === "AC" && jumlah >= 3) {
+                diskon = 0.2 * hargaKotor;
+            } else {
+                diskon = 0.1 * hargaKotor;
+            }
+
+            // Hitung PPN
+            let ppn = 0.1 * (hargaKotor - diskon);
+
+            // Hitung harga bayar
+            let hargaBayar = (hargaKotor - diskon) + ppn;
+
+            let format = new Intl.NumberFormat("id-ID");
+            
+// Tampilkan hasil transaksi dalam alert
+let hasilTransaksi =
+`Nama Pelanggan: ${nama}
+Produk yang dibeli: ${produk}
+Harga Satuan: ${format.format(harga)}
+Jumlah Item Produk yang dibeli: ${jumlah}
+Harga Kotor: ${format.format(hargaKotor)}
+Diskon: ${format.format(diskon)}
+PPN: ${format.format(ppn)}
+Harga Bayar: ${format.format(hargaBayar)}`;
+
+            alert(hasilTransaksi);
+        }
+    </script>
+</body>
+</html>
