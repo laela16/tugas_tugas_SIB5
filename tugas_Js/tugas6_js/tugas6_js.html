@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script>
+        $("document").ready(function(){
+         $("#div1").mouseover(function(){
+            $(this).css({
+                 background: "blue"
+             });
+             $(this).html(
+                 `<p> Saya nurlaela salah satu peserta program msib 5 fullstack depeloper web pt Hendevane Indonesia,
+                     dan merupakan mahasiswi Teknik informatika yang berasal dari Univesrsitas Pamulang</p>`
+             );
+         });
+         $("div").mouseout(function(){
+             $(this).css({
+                 background: "white"
+             });
+         });
+         $("#div2").mouseover(function(){
+             $(this).css({
+                 background: "blue"
+             });
+             $(this).html(
+                 `<p> Moto Hidup : <q>Tidak ada yang sulit jika mau berusaha dan terus berdoa</q>
+                    Alasannya karena dengan usaha dan disertai doa pasti Allah akan mempermudah jalan setiap hambanya</p>`
+             );
+         });
+         $("div").mouseout(function(){
+             $(this).css({
+                 background: "white"
+             });
+         });
+         $("#div3").mouseover(function(){
+             $(this).css({
+                 background: "blue"
+             });
+             $(this).html(
+                 `<p> Keahlian : Memahami dan mampu menerapkan rule dasar HTML, CSS, Pemprograman javascript, dan PHP.<br>
+                    Pengalaman : Merancang sistem inventory coffe shopp dibawah bimbingan dosen pengampu matkul kerja praktek</p>`
+             );
+            });
+     });
+
+ </script>
+</head>
+<body>
+    <h2>Tugas 6 Javascript</h2>
+    <div id="div1">Profil</div>
+    <div id="div2">Moto Hidup</div>
+    <div id="div3">Keahlian</div>
+</body>
+</html>
