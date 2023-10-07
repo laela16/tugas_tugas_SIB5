@@ -1,0 +1,31 @@
+//Membuat database baru dengan nama "dbpegawai":
+
+CREATE DATABASE dbpegawai;
+
+//Masuk ke database "dbpegawai":
+
+USE dbpegawai;
+
+//Menampilkan tabel-tabel yang sudah ada :
+
+SHOW TABLES;
+
+//Membuat tabel "pegawai" dengan field-field yang diminta:
+
+CREATE TABLE pegawai (
+    id INT PRIMARY KEY,
+    nip CHAR(5) NOT NULL UNIQUE,
+    nama VARCHAR(30) NOT NULL,
+    gender ENUM('L', 'P') NOT NULL,
+    umur INT NOT NULL,
+    berat_badan FLOAT
+);
+
+//menampilkan database yang sudah dibuat:
+
+SHOW DATABASES;
+
+//melihat deskripsi tabel "pegawai" yang sudah dibuat:
+
+DESCRIBE pegawai;
+
