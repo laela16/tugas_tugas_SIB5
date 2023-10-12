@@ -1,0 +1,230 @@
+--Tugas worksheet 3
+
+--SOAL 3.2
+
+--jumlah pelanggan yang tahun lahirnya 1998
+MariaDB [dbpos]> SELECT COUNT(*) as jumlah_pelanggan
+    ->    FROM pelanggan
+    ->    WHERE YEAR(tgl_lahir) = 1998;
++------------------+
+| jumlah_pelanggan |
++------------------+
+|                1 |
++------------------+
+1 row in set (0.000 sec)
+
+--jumlah pelanggan perempuan yang tempat lahirnya di Jakarta
+MariaDB [dbpos]> select count(jk) as Jumlah_pelanggan from pelanggan where tmp_lahir = 'Jakarta' and jk = 'P';
++------------------+
+| Jumlah_pelanggan |
++------------------+
+|                2 |
++------------------+
+1 row in set (0.001 sec)
+
+--jumlah total stok semua produk yang harga jualnya dibawah 10rb
+MariaDB [dbpos]> select count(harga_jual) as Total_Stok from produk where harga_jual < 10000;
++------------+
+| Total_Stok |
++------------+
+|          1 |
++------------+
+1 row in set (0.001 sec)
+
+--produk yang mempunyai kode awal K
+MariaDB [dbpos]> select count(kode) as Jml_Produk_Awalan_K from produk where kode like 'K%';
++---------------------+
+| Jml_Produk_Awalan_K |
++---------------------+
+|                   1 |
++---------------------+
+1 row in set (0.003 sec)
+
+--harga jual rata-rata produk yang diatas 1jt
+MariaDB [dbpos]> SELECT AVG(harga_jual) as rata_rata
+    ->    FROM produk
+    ->    WHERE harga_jual > 1000000;
++-----------+
+| rata_rata |
++-----------+
+|   6685000 |
++-----------+
+1 row in set (0.001 sec)
+
+--Menampilkan jumlah stok yang paling besar
+MariaDB [dbpos]> SELECT MAX(stok) as stok_terbanyak FROM produk;
++----------------+
+| stok_terbanyak |
++----------------+
+|             10 |
++----------------+
+1 row in set (0.002 sec)
+
+produk yang stoknya kurang dari minimal stok
+MariaDB [dbpos]> select count(stok) As stok_sedikit from produk where stok < min_stok;
++--------------+
+| stok_sedikit |
++--------------+
+|            2 |
++--------------+
+1 row in set (0.001 sec)
+
+--total asset dari keseluruhan produk
+MariaDB [dbpos]> select count(nama) As total_aset from produk;
++------------+
+| total_aset |
++------------+
+|         10 |
++------------+
+1 row in set (0.001 sec)
+
+--SOAL 3.3
+
+--Menampilkan data produk : id, nama, stok dan informasi jika stok telah sampai batas minimal atau kurang dari minimum stok dengan informasi ‘segera belanja’ jika tidak ‘stok aman’.
+MariaDB [dbpos]> select id, nama, stok,
+    -> case
+    -> when stok > min_stok then 'Stok Aman'
+    -> else 'Segera Belanja'
+    -> end as Informasi from produk;
++----+------------------+------+----------------+
+| id | nama             | stok | Informasi      |
++----+------------------+------+----------------+
+|  1 | Televisi 23 inch |    5 | Stok Aman      |
+|  2 | Televisi 40 inch |   10 | Stok Aman      |
+|  3 | Kulkas 2 pintu   |    5 | Stok Aman      |
+|  4 | Teh Kotak        |    6 | Segera Belanja |
+|  5 | Meja Makan       |    3 | Segera Belanja |
+|  6 | Ayam Bakar       |    6 | Stok Aman      |
+|  7 | Ayam Goreng      |    7 | Stok Aman      |
+|  8 | Laptop           |    6 | Segera Belanja |
+|  9 | Hardisk          |    5 | Stok Aman      |
+| 10 | Mouse            |    9 | Stok Aman      |
++----+------------------+------+----------------+
+10 rows in set (0.003 sec)
+
+--Menampilkan data pelanggan: id, nama, umur dan kategori umur : jika umur < 17 → ‘muda’ , 17-55 → ‘Dewasa’, selainnya ‘Tua’
++----+--------------+------+---------------+
+| id | nama         | umur | kategori_umur |
++----+--------------+------+---------------+
+|  1 | Nurlaela     |   21 | Dewasa        |
+|  2 | Haechan      |   23 | Dewasa        |
+|  3 | Lee Mark     |   24 | Dewasa        |
+|  4 | Lala         |   21 | Dewasa        |
+|  5 | Jenny        |   35 | Dewasa        |
+|  6 | Off Jumpol   |   31 | Dewasa        |
+|  7 | Nadia salala |    7 | Muda          |
+|  8 | Lula putri   |   26 | Dewasa        |
+|  9 | Gun Attphan  |   30 | Dewasa        |
+| 10 | Kim Seokjin  |   31 | Dewasa        |
+| 11 | yolanda      |   26 | Dewasa        |
+| 13 | yohanes      |   25 | Dewasa        |
++----+--------------+------+---------------+
+12 rows in set (0.004 sec)
+
+--Menampilkan data produk: id, kode, nama, dan bonus untuk kode ‘TV01’ →’DVD Player’ , ‘K001’ → ‘Rice Cooker’ selain dari diatas ‘Tidak Ada’
+MariaDB [dbpos]> SELECT id, kode, nama,
+    -> CASE WHEN kode = 'TV01' THEN 'DVD PLAYER'
+    -> WHEN kode = 'K001' THEN 'RICE COOKCER'
+    -> ELSE 'Tidak Ada' END as 'Bonus'
+    -> FROM produk;
++----+------+------------------+--------------+
+| id | kode | nama             | Bonus        |
++----+------+------------------+--------------+
+|  1 | TV01 | Televisi 23 inch | DVD PLAYER   |
+|  2 | TV02 | Televisi 40 inch | Tidak Ada    |
+|  3 | K001 | Kulkas 2 pintu   | RICE COOKCER |
+|  4 | Tk01 | Teh Kotak        | Tidak Ada    |
+|  5 | M001 | Meja Makan       | Tidak Ada    |
+|  6 | A001 | Ayam Bakar       | Tidak Ada    |
+|  7 | A002 | Ayam Goreng      | Tidak Ada    |
+|  8 | LT01 | Laptop           | Tidak Ada    |
+|  9 | H001 | Hardisk          | Tidak Ada    |
+| 10 | Mo01 | Mouse            | Tidak Ada    |
++----+------+------------------+--------------+
+10 rows in set (0.001 sec)
+
+--SOAL 3.4
+--Menampilkan data statistik jumlah tempat lahir pelanggan
+MariaDB [dbpos]> SELECT tmp_lahir, COUNT(tmp_lahir) as jumlah_pelanggan FROM pelanggan GROUP BY tmp_lahir;
++-----------+------------------+
+| tmp_lahir | jumlah_pelanggan |
++-----------+------------------+
+| Bandung   |                1 |
+| Bangkok   |                2 |
+| Bekasi    |                1 |
+| Bogor     |                2 |
+| Jakarta   |                3 |
+| Seoul     |                1 |
+| Surabaya  |                1 |
+| Tangerang |                1 |
++-----------+------------------+
+8 rows in set (0.002 sec)
+
+--Menampilkan jumlah statistik produk berdasarkan jenis produk
+MariaDB [dbpos]> SELECT jenis_produk_id, COUNT(*) as jumlah_produk FROM produk GROUP BY jenis_produk_id;
++-----------------+---------------+
+| jenis_produk_id | jumlah_produk |
++-----------------+---------------+
+|               1 |             4 |
+|               2 |             1 |
+|               3 |             2 |
+|               4 |             1 |
+|               5 |             2 |
++-----------------+---------------+
+5 rows in set (0.001 sec)
+
+--Menampilkan data pelanggan yang usianya dibawah rata usia pelanggan
+MariaDB [dbpos]> SELECT id, nama, YEAR(NOW())-YEAR(tgl_lahir)as umur FROM pelanggan WHERE YEAR(NOW())-YEAR(tgl_lahir) < (SELECT AVG(YEAR(NOW())-YEAR(tgl_lahir)) FROM pelanggan);
++----+--------------+------+
+| id | nama         | umur |
++----+--------------+------+
+|  1 | Nurlaela     |   21 |
+|  2 | Haechan      |   23 |
+|  3 | Lee Mark     |   24 |
+|  4 | Lala         |   21 |
+|  7 | Nadia salala |    7 |
+| 13 | yohanes      |   25 |
++----+--------------+------+
+6 rows in set (0.004 sec)
+
+--Menampilkan data produk yang harganya diatas rata-rata harga produk
+MariaDB [dbpos]> SELECT id, nama, harga_jual FROM produk WHERE harga_jual > (SELECT AVG(harga_jual) FROM produk);
++----+------------------+------------+
+| id | nama             | harga_jual |
++----+------------------+------------+
+|  1 | Televisi 23 inch |    5040000 |
+|  2 | Televisi 40 inch |    9600000 |
+|  3 | Kulkas 2 pintu   |    4600000 |
+|  8 | Laptop           |    7500000 |
++----+------------------+------------+
+4 rows in set (0.002 sec)
+
+--Menampilkan data pelanggan yang memiliki kartu dimana iuran tahunan kartu diatas 90rb
++----+------+-------------+------+-----------+------------+----------------------+----------+----+------+----------------+--------+--------+
+| id | kode | nama        | jk   | tmp_lahir | tgl_lahir  | email                | kartu_id | id | kode | nama           | diskon | iuran  |
++----+------+-------------+------+-----------+------------+----------------------+----------+----+------+----------------+--------+--------+
+|  1 | C001 | Nurlaela    | P    | Tangerang | 2002-04-10 | lnur4848@gmail.com   |        1 |  1 | Gold | Gold Utama     |   0.05 | 100000 |
+|  2 | C002 | Haechan     | L    | Bandung   | 2000-06-06 | chan0606@gmail.com   |        1 |  1 | Gold | Gold Utama     |   0.05 | 100000 |
+|  5 | C005 | Jenny       | P    | Jakarta   | 1988-03-11 | jenjen4148@gmail.com |        2 |  2 | PLAT | Platinium Jaya |    0.1 | 150000 |
+|  8 | C008 | Lula putri  | P    | Jakarta   | 1997-09-23 | putri12318@gmail.com |        1 |  1 | Gold | Gold Utama     |   0.05 | 100000 |
+|  9 | C009 | Gun Attphan | L    | Bangkok   | 1993-04-14 | attp12318@gmail.com  |        2 |  2 | PLAT | Platinium Jaya |    0.1 | 150000 |
+| 10 | C010 | Kim Seokjin | L    | Seoul     | 1991-12-04 | kim16848@gmail.com   |        2 |  2 | PLAT | Platinium Jaya |    0.1 | 150000 |
+| 11 | C011 | yolanda     | P    | Bogor     | 1997-09-21 | yola12318@gmail.com  |        1 |  1 | Gold | Gold Utama     |   0.05 | 100000 |
++----+------+-------------+------+-----------+------------+----------------------+----------+----+------+----------------+--------+--------+
+7 rows in set (0.001 sec)
+--Menampilkan statistik data produk dimana harga produknya dibawah rata-rata harga produk secara keseluruhan
+MariaDB [dbpos]> SELECT nama, harga_jual FROM produk WHERE harga_jual < (SELECT AVG(harga_jual) FROM produk);
++-------------+------------+
+| nama        | harga_jual |
++-------------+------------+
+| Teh Kotak   |       3500 |
+| Meja Makan  |     600000 |
+| Ayam Bakar  |      53000 |
+| Ayam Goreng |      48000 |
+| Hardisk     |     510000 |
+| Mouse       |      75000 |
++-------------+------------+
+6 rows in set (0.001 sec)
+
+--Menampilkan data pelanggan yang memiliki kartu dimana diskon kartu yang diberikan diatas 3%
+SELECT p.*, k.* FROM pelanggan p INNER JOIN kartu k ON p.kartu_id = k.id WHERE k.diskon > 3;
