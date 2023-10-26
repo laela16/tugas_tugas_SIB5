@@ -1,6 +1,10 @@
 <?php
+include_once 'models/Jenis_produk.php';
+include_once 'models/Kartu.php';
+include_once 'models/Produk.php';
 include_once 'top.php';
 include_once 'menu.php';
+
 
 ?>
 <div>
